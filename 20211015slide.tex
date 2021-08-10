@@ -1,0 +1,149 @@
+\documentclass[aspectratio=169,dvipdfmx,14pt,notheorems]{beamer}
+%%%% 和文用 %%%%%
+\usepackage{bxdpx-beamer}
+\usepackage{pxjahyper}
+\usepackage{minijs}%和文用
+\renewcommand{\kanjifamilydefault}{\gtdefault}%和文用
+
+%%%% スライドの見た目 %%%%%
+\usetheme{Madrid}
+\usefonttheme{professionalfonts}
+\setbeamertemplate{frametitle}[default][center]
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{transparent}%好みに応じてどうぞ）
+\setbeamertemplate{blocks}[rounded]
+\useinnertheme{circles}
+\setbeamertemplate{footline}[page number]
+\setbeamerfont{footline}{size=\normalsize,series=\bfseries}
+\setbeamercolor{footline}{fg=black,bg=black}
+%%%%
+
+%%%% 定義環境 %%%%%
+\usepackage{amsmath,amssymb}
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}
+\newtheorem{definition}{定義}
+\newtheorem{proposition}{命題}
+\newtheorem{lemma}{補題}
+\newtheorem{corollary}{系}
+\newtheorem{conjecture}{予想}
+\newtheorem*{remark}{Remark}
+\renewcommand{\proofname}{}
+%%%%%%%%%
+
+%%%%% フォント基本設定 %%%%%
+\usepackage[T1]{fontenc}%8bit フォント
+\usepackage{textcomp}%欧文フォントの追加
+\usepackage[utf8]{inputenc}%文字コードをUTF-8
+\usepackage[deluxe]{otf}%otfパッケージ
+\usepackage{lxfonts}%数式・英文ローマン体を Lxfont にする
+\usepackage{bm}%数式太字
+%%%%%%%%%%
+
+%%%%% PythonTeX %%%%%
+\usepackage[makestderr]{pythontex}
+\restartpythontexsession{\thesection}
+ 
+\title{組み込み関数powの知られざる進化}
+\subtitle{Unknown Evolution of the Built-in Function pow}
+\author[Hayao]{Hayao Suzuki}
+\institute[PyCon JP 2021]{PyCon JP 2021}
+\date{October 15, 2021}
+
+\begin{document}
+
+\begin{frame}[plain]\frametitle{}
+\titlepage %表紙
+\end{frame}
+
+\begin{frame}\frametitle{発表に際して}
+
+\begin{block}{GitHubに資料があります}
+\begin{itemize}
+\item \url{https://github.com/HayaoSuzuki/pyconjp2021}
+\end{itemize}
+\end{block}
+
+\begin{block}{Twitterのハッシュタグ}
+\begin{itemize}
+\item \#pyconjp\_1 TBA
+\end{itemize}
+\end{block}
+
+\begin{block}{PyCon JP Fellow Slack}
+\begin{itemize}
+\item \#jp-2020-track-1 TBA
+\end{itemize}
+\end{block}
+\end{frame}
+
+\section{Self Introduction}
+
+\begin{frame}\frametitle{Who am I ?}
+
+\begin{block}{お前誰よ}
+\begin{description}
+\item[Name] Hayao Suzuki（鈴木　駿）
+\item[Twitter] \href{https://twitter.com/CardinalXaro}{@CardinalXaro}
+\item[Work] Python Programmer
+\end{description}
+\end{block}
+
+\end{frame}
+
+\begin{frame}\frametitle{Who am I ?}
+
+\begin{block}{Selected Books}
+\begin{itemize}
+\item \structure{入門 Python 3 第2版}(O'Reilly Japan)
+\item \structure{Effective Python 第2版}(O'Reilly Japan)
+\item \structure{実践 時系列解析}(O'Reilly Japan) \structure{New!}
+\end{itemize}
+\end{block}
+\url{https://xaro.hatenablog.jp/}にリストがあります。
+\end{frame}
+
+\begin{frame}\frametitle{Who am I ?}
+
+\begin{block}{Selected Talks}
+\begin{itemize}
+\item \structure{レガシーDjangoアプリケーションの現代化}(DjangoCongress JP 2018)
+\item \structure{SymPyによる数式処理}(PyCon JP 2018)
+\item \structure{Pythonと楽しむ初等整数論}(PyCon mini Hiroshima 2019)
+\item \structure{君はcmathを知っているか}(PyCon mini Shizuoka 2020)
+\item \structure{インメモリーストリーム活用術}(PyCon JP 2020)
+\end{itemize}
+\end{block}
+\url{https://xaro.hatenablog.jp/}にリストがあります。
+\end{frame}
+
+\begin{frame}\frametitle{今日の目標}
+
+\begin{block}{組み込み関数powの知られざる進化}
+\begin{itemize}
+\item \texttt{pow}関数は遅くともPython 1.4から存在する
+\item Pythonに限らず、大抵の言語には\texttt{pow}関数が存在する
+\item \texttt{pow}関数は身近な存在
+\end{itemize}
+\end{block}
+
+\begin{alertblock}{Python 3.8で機能追加}
+既に枯れている関数では？
+\end{alertblock}
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}[fragile]\frametitle{Conclusion}
+\begin{block}{まとめ}
+\begin{itemize}
+\item \texttt{pow}関数は身近な存在
+\item \texttt{pow}関数は身近な存在
+\item \texttt{pow}関数は身近な存在
+\item \texttt{pow}関数は身近な存在
+\end{itemize}
+\end{block}
+\texttt{pow}関数はズッ友！
+\end{frame}
+\end{document}
