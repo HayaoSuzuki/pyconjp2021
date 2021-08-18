@@ -171,12 +171,21 @@ b^{n} \triangleq \overbrace{b \times b \times \cdots \times b}^{n\text{個}}
 
 \end{frame}
 
-\begin{frame}\frametitle{整数のべき乗}
+\begin{frame}[fragile]\frametitle{整数のべき乗}
 
 \begin{block}{Pythonにおけるべき乗}
 組み込み関数\texttt{pow}または\texttt{**}演算子を使う。
 \end{block}
-TODO: pythontexで計算例を載せる
+
+\begin{exampleblock}{べき乗の実行例}
+
+\begin{pyconsole}
+pow(2, 32)
+2 ** 32
+\end{pyconsole}
+
+\end{exampleblock}
+
 \end{frame}
 
 \subsection{べき乗剰余について}
@@ -198,16 +207,42 @@ b^{n} \bmod{m}
 
 \end{frame}
 
-\begin{frame}\frametitle{べき乗剰余}
+\begin{frame}[fragile]\frametitle{べき乗剰余}
 
 \begin{block}{Pythonにおけるべき乗剰余}
 \begin{itemize}
-\item 組み込み関数\texttt{pow}で効率的に計算できる。
-\item \texttt{**}演算子および\texttt{\%}演算子でも計算可能だが非効率。
+\item 組み込み関数\texttt{pow}で\structure{効率的に}計算できる。
+\item \texttt{**}演算子および\texttt{\%}演算子でも計算可能だが\alert{効率が悪い}。
 \end{itemize}
 \end{block}
-TODO: pythontexで計算例を載せる
+
+\begin{exampleblock}{べき乗剰余の実行例}
+
+\begin{pyconsole}
+pow(2, 262144, 65535)
+(2 ** 262144) % 65535
+\end{pyconsole}
+
+\end{exampleblock}
+
 \end{frame}
+
+\begin{frame}[fragile]\frametitle{べき乗剰余}
+
+\begin{exampleblock}{どれだけ効率的か}
+
+\begin{pyconsole}
+import timeit
+timeit.timeit("(2 ** 262144) % 65535", number=1000)
+timeit.timeit("pow(2, 262144, 65535)", number=1000)
+\end{pyconsole}
+
+\end{exampleblock}
+結果を実行回数で割れば平均時間がわかる。
+
+\end{frame}
+
+
 
 \section{Python 3.8からのpow関数}
 
@@ -218,6 +253,8 @@ TODO: pythontexで計算例を載せる
 \end{frame}
 
 \subsection{整数の合同}
+
+
 
 \section{まとめ}
 
