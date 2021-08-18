@@ -73,20 +73,20 @@
 
 \begin{block}{PyCon JP Fellow Slack}
 \begin{itemize}
-\item \#jp-2020-track-1 TBA
+\item \#jp-2021-track-1 TBA
 \end{itemize}
 \end{block}
 \end{frame}
 
-\section{Self Introduction}
+\section{はじめに}
 
 \begin{frame}\frametitle{Who am I ?}
 
 \begin{block}{お前誰よ}
 \begin{description}
-\item[Name] Hayao Suzuki（鈴木　駿）
+\item[名前] Hayao Suzuki（鈴木　駿）
 \item[Twitter] \href{https://twitter.com/CardinalXaro}{@CardinalXaro}
-\item[Work] Python Programmer
+\item[仕事] Software Developer @ TBA
 \end{description}
 \end{block}
 
@@ -94,7 +94,7 @@
 
 \begin{frame}\frametitle{Who am I ?}
 
-\begin{block}{Selected Books}
+\begin{block}{監訳・査読した技術書}
 \begin{itemize}
 \item \structure{入門 Python 3 第2版}(O'Reilly Japan)
 \item \structure{Effective Python 第2版}(O'Reilly Japan)
@@ -106,7 +106,7 @@
 
 \begin{frame}\frametitle{Who am I ?}
 
-\begin{block}{Selected Talks}
+\begin{block}{発表リスト}
 \begin{itemize}
 \item \structure{レガシーDjangoアプリケーションの現代化}(DjangoCongress JP 2018)
 \item \structure{SymPyによる数式処理}(PyCon JP 2018)
@@ -120,20 +120,106 @@
 
 \begin{frame}\frametitle{今日の目標}
 
-\begin{block}{組み込み関数powの知られざる進化}
+\begin{block}{組み込み関数\texttt{pow}}
 \begin{itemize}
-\item \texttt{pow}関数は遅くともPython 1.4から存在する
+\item \texttt{pow}関数は数のべき乗を返す関数
 \item Pythonに限らず、大抵の言語には\texttt{pow}関数が存在する
-\item \texttt{pow}関数は身近な存在
 \end{itemize}
 \end{block}
 
-\begin{alertblock}{Python 3.8で機能追加}
-既に枯れている関数では？
-\end{alertblock}
+\begin{exampleblock}{Python 3.8で機能追加}
+\begin{itemize}
+\item 整数$m$を法とする剰余類における逆元が計算できる
+\item よくわからない単語を並べるな！
+\end{itemize}
+\end{exampleblock}
 \end{frame}
 
-\section{Conclusion}
+\begin{frame}\frametitle{今日の目標}
+\begin{block}{組み込み関数powの知られざる進化}
+\begin{itemize}
+\item 「整数$m$を法とする剰余類における逆元」の意味を理解する
+\item 「整数$m$を法とする剰余類における逆元」を計算するアルゴリズムを理解する
+\end{itemize}
+\end{block}
+\end{frame}
+
+\section{従来のpow関数}
+
+\begin{frame}\frametitle{今までの\texttt{pow}関数}
+\begin{center}
+\Large Python 3.7までの\texttt{pow}関数を復習しよう
+\end{center}
+\end{frame}
+
+\subsection{数のべき乗について}
+
+\begin{frame}\frametitle{整数のべき乗}
+\begin{definition}[整数のべき乗]
+整数$b$と自然数$n$に対して、\structure{べき乗}$b^{n}$を
+\begin{equation*}
+b^{n} \triangleq \overbrace{b \times b \times \cdots \times b}^{n\text{個}}
+\end{equation*}
+と定義する。$b$を\structure{底}、$n$を\structure{指数}と呼ぶ。
+\end{definition}
+
+\begin{exampleblock}{整数のべき乗の例}
+\begin{equation*}
+2^{32} = 4294967296.
+\end{equation*}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}\frametitle{整数のべき乗}
+
+\begin{block}{Pythonにおけるべき乗}
+組み込み関数\texttt{pow}または\texttt{**}演算子を使う。
+\end{block}
+TODO: pythontexで計算例を載せる
+\end{frame}
+
+\subsection{べき乗剰余について}
+
+\begin{frame}\frametitle{べき乗剰余}
+\begin{definition}[べき乗剰余]
+自然数の底$b$と自然数$n, m$に対して、
+\begin{equation*}
+b^{n} \bmod{m}
+\end{equation*}
+を\structure{$m$を法とするべき乗剰余}と定義する。
+\end{definition}
+
+\begin{exampleblock}{べき乗剰余の例}
+\begin{equation*}
+2^{32} \bmod{65535} = 1.
+\end{equation*}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}\frametitle{べき乗剰余}
+
+\begin{block}{Pythonにおけるべき乗剰余}
+\begin{itemize}
+\item 組み込み関数\texttt{pow}で効率的に計算できる。
+\item \texttt{**}演算子および\texttt{\%}演算子でも計算可能だが非効率。
+\end{itemize}
+\end{block}
+TODO: pythontexで計算例を載せる
+\end{frame}
+
+\section{Python 3.8からのpow関数}
+
+\begin{frame}\frametitle{これからの\texttt{pow}関数}
+\begin{center}
+\Large Python 3.8からの\texttt{pow}関数を理解するために
+\end{center}
+\end{frame}
+
+\subsection{整数の合同}
+
+\section{まとめ}
 
 \begin{frame}[fragile]\frametitle{Conclusion}
 \begin{block}{まとめ}
