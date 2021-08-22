@@ -94,10 +94,13 @@
 
 \begin{frame}\frametitle{Who am I ?}
 
-\begin{block}{監訳・査読した技術書}
+\begin{block}{監訳・査読した技術書（抜粋）}
 \begin{itemize}
 \item \structure{入門 Python 3 第2版}(O'Reilly Japan)
 \item \structure{Effective Python 第2版}(O'Reilly Japan)
+
+\item \structure{機械学習による実用アプリケーション構築}(O'Reilly Japan)
+\item \structure{PyTorchとfastaiではじめるディープラーニング}(O'Reilly Japan)
 \item \structure{実践 時系列解析}(O'Reilly Japan) \structure{New!}
 \end{itemize}
 \end{block}
@@ -106,7 +109,7 @@
 
 \begin{frame}\frametitle{Who am I ?}
 
-\begin{block}{発表リスト}
+\begin{block}{発表リスト（抜粋）}
 \begin{itemize}
 \item \structure{レガシーDjangoアプリケーションの現代化}(DjangoCongress JP 2018)
 \item \structure{SymPyによる数式処理}(PyCon JP 2018)
@@ -129,7 +132,7 @@
 
 \begin{exampleblock}{Python 3.8で機能追加}
 \begin{itemize}
-\item 整数$m$を法とする剰余類における逆元が計算できる
+\item 整数$m$を法とする剰余類における乗法逆元が計算できる
 \item よくわからない単語を並べるな！
 \end{itemize}
 \end{exampleblock}
@@ -185,6 +188,9 @@ pow(2, 32)
 \end{pyconsole}
 
 \end{exampleblock}
+% メモ int型におけるpowの実装は以下の通り
+% https://github.com/python/cpython/blob/59242431991794064824cf2ab70886367613f29e/Objects/longobject.c#L4097
+% Left-to-right binary exponentiation と呼ばれるアルゴリズムを使っている
 
 \end{frame}
 
@@ -212,7 +218,7 @@ b^{n} \bmod{m}
 \begin{block}{Pythonにおけるべき乗剰余}
 \begin{itemize}
 \item 組み込み関数\texttt{pow}で\structure{効率的に}計算できる。
-\item \texttt{**}演算子および\texttt{\%}演算子でも計算可能だが\alert{効率が悪い}。
+\item \texttt{**}演算子および\texttt{\%}演算子でも計算可能だが\structure{効率が悪い}。
 \end{itemize}
 \end{block}
 
@@ -222,6 +228,10 @@ b^{n} \bmod{m}
 pow(2, 262144, 65535)
 (2 ** 262144) % 65535
 \end{pyconsole}
+
+% メモ
+% 計算の都度、余りを計算してるように見えるが、ちょっと自身がない
+% https://github.com/python/cpython/blob/59242431991794064824cf2ab70886367613f29e/Objects/longobject.c#L4219
 
 \end{exampleblock}
 
@@ -233,16 +243,14 @@ pow(2, 262144, 65535)
 
 \begin{pyconsole}
 import timeit
-timeit.timeit("(2 ** 262144) % 65535", number=1000)
 timeit.timeit("pow(2, 262144, 65535)", number=1000)
+timeit.timeit("(2 ** 262144) % 65535", number=1000)
 \end{pyconsole}
 
 \end{exampleblock}
 結果を実行回数で割れば平均時間がわかる。
 
 \end{frame}
-
-
 
 \section{Python 3.8からのpow関数}
 
@@ -254,7 +262,74 @@ timeit.timeit("pow(2, 262144, 65535)", number=1000)
 
 \subsection{整数の合同}
 
+\begin{frame}\frametitle{整数の合同}
 
+\begin{definition}[整数の合同]
+整数$a$が$m$を法として$b$と合同であるとは$m$が$a-b$を割り切ることをいい、
+\begin{equation*}
+a \equiv b \pmod{m}
+\end{equation*}
+と表す。
+\end{definition}
+
+\begin{exampleblock}{整数の合同の例}
+\begin{equation*}
+47 \equiv 35 \pmod{6}
+\end{equation*}
+$47-35 = 12$は6で割り切れる。
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}\frametitle{これからの\texttt{pow}関数}
+
+\begin{definition}[整数$m$を法とする剰余類における乗法逆元]
+整数$a, b$と自然数$m$に対して、
+\begin{equation*}
+ab \equiv 1 \pmod{m}
+\end{equation*}
+となるとき、$b$を$a$の\structure{乗法逆元}と呼び、$a^{-1}$と表す。
+\end{definition}
+
+\begin{exampleblock}{剰余類における乗法逆元の例}
+\begin{equation*}
+38 * 23 \equiv 1 \pmod{97}
+\end{equation*}
+38の97を法とする乗法逆元は23
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{剰余類における乗法逆元}
+
+\begin{block}{Pythonにおける剰余類における乗法逆元}
+\begin{itemize}
+\item 組み込み関数\texttt{pow}の第2引数に$-1$を渡せば計算可能
+\item これがPython 3.8の新機能
+\end{itemize}
+\end{block}
+
+\begin{exampleblock}{剰余類における乗法逆元の実行例}
+
+\begin{pyconsole}
+pow(38, -1, 97)
+(38 * 23) % 97 == 1
+\end{pyconsole}
+
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{剰余類における乗法逆元}
+
+\begin{alertblock}{必ずしも乗法逆元が存在するとは限らない}
+
+\begin{pyconsole}
+pow(2, -1, 6)
+\end{pyconsole}
+\end{alertblock}
+底と法となる数は互いに素である必要がある（何故？）
+\end{frame}
 
 \section{まとめ}
 
