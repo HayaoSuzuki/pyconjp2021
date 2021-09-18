@@ -67,11 +67,11 @@
 
 \begin{block}{Twitterのハッシュタグ}
 \begin{itemize}
-\item \#pyconjp\_1 TBA
+\item \#pyconjp\_4 TBA
 \end{itemize}
 \end{block}
 
-\begin{block}{PyCon JP Fellow Slack}
+\begin{block}{PyCon JP Discord}
 \begin{itemize}
 \item \#jp-2021-track-1 TBA
 \end{itemize}
@@ -86,9 +86,20 @@
 \begin{description}
 \item[名前] Hayao Suzuki（鈴木　駿）
 \item[Twitter] \href{https://twitter.com/CardinalXaro}{@CardinalXaro}
-\item[仕事] Software Developer @ TBA
+\item[仕事] Software Developer @ BeProud Inc.
 \end{description}
 \end{block}
+
+\begin{center}
+\begin{itemize}
+\item 株式会社ビープラウド \includegraphics[width=4cm]{bplogo.png}
+\begin{itemize}
+\item IT勉強会支援サービス connpass \includegraphics[width=2cm]{connpass_logo_1.png}
+\item オンライン学習サービス PyQ \includegraphics[width=1cm]{pyq_logo_color.png}
+\item システム開発のためのドキュメントサービス Tracery
+\end{itemize}
+\end{itemize}
+\end{center}
 
 \end{frame}
 
@@ -98,10 +109,10 @@
 \begin{itemize}
 \item \structure{入門 Python 3 第2版}(O'Reilly Japan)
 \item \structure{Effective Python 第2版}(O'Reilly Japan)
-
 \item \structure{機械学習による実用アプリケーション構築}(O'Reilly Japan)
 \item \structure{PyTorchとfastaiではじめるディープラーニング}(O'Reilly Japan)
 \item \structure{実践 時系列解析}(O'Reilly Japan) \structure{New!}
+\item \structure{機械学習デザインパターン}(O'Reilly Japan) \structure{New!}
 \end{itemize}
 \end{block}
 \url{https://xaro.hatenablog.jp/}にリストがあります。
@@ -252,6 +263,18 @@ timeit.timeit("(2 ** 262144) % 65535", number=1000)
 
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{べき乗剰余}
+
+\begin{exampleblock}{演算子と関数における計算時間の比較}
+\begin{figure}
+  \centering
+  \includegraphics[width=9cm]{op_vs_func.png}
+\end{figure}
+\end{exampleblock}
+
+\end{frame}
+
+
 \section{Python 3.8からのpow関数}
 
 \begin{frame}\frametitle{これからの\texttt{pow}関数}
@@ -352,6 +375,26 @@ ax -my = 1
 \end{equation*}
 が整数解$x, y$を持つことに他ならない。
 \end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{方程式を観察する}
+
+\begin{exampleblock}{例：$3x + 9y$なる数式}
+$x$や$y$に整数を代入するといずれも3の倍数となる。
+\begin{table}[]
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+       & $x=-2$ & $x=-1$ & $x=0$ & $x=1$ & $x=2$ \\ \hline
+$y=-2$ & -24    & -21    & -18   & -15   & -12   \\ \hline
+$y=-1$ & -15    & -12    & -9    & -6    & -3    \\ \hline
+$y=0$  & -6     & -3     & 0     & 3     & 6     \\ \hline
+$y=1$  & 3      & 6      & 9     & 12    & 15    \\ \hline
+$y=2$  & 12     & 15     & 18    & 21    & 24    \\ \hline
+\end{tabular}
+\end{table}
+
+\end{exampleblock}
 
 \end{frame}
 
