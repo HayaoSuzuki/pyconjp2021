@@ -90,16 +90,16 @@
 \end{description}
 \end{block}
 
-\begin{center}
-\begin{itemize}
-\item 株式会社ビープラウド \includegraphics[width=4cm]{bplogo.png}
-\begin{itemize}
-\item IT勉強会支援サービス connpass \includegraphics[width=2cm]{connpass_logo_1.png}
-\item オンライン学習サービス PyQ \includegraphics[width=1cm]{pyq_logo_color.png}
-\item システム開発のためのドキュメントサービス Tracery
-\end{itemize}
-\end{itemize}
-\end{center}
+%\begin{center}
+%\begin{itemize}
+%\item 株式会社ビープラウド \includegraphics[width=4cm]{bplogo.png}
+%\begin{itemize}
+%\item IT勉強会支援サービス connpass \includegraphics[width=2cm]{connpass_logo_1.png}
+%\item オンライン学習サービス PyQ \includegraphics[width=1cm]{pyq_logo_color.png}
+%\item システム開発のためのドキュメントサービス Tracery
+%\end{itemize}
+%\end{itemize}
+%\end{center}
 
 \end{frame}
 
@@ -304,6 +304,8 @@ $47-35 = 12$は6で割り切れる。
 
 \end{frame}
 
+\subsection{乗法逆元の定義}
+
 \begin{frame}\frametitle{これからの\texttt{pow}関数}
 
 \begin{definition}[整数$m$を法とする剰余類における乗法逆元]
@@ -343,6 +345,8 @@ pow(38, -1, 97)
 
 \end{frame}
 
+\subsection{乗法逆元が存在する条件}
+
 \begin{frame}[fragile]\frametitle{剰余類における乗法逆元}
 
 \begin{alertblock}{必ずしも乗法逆元が存在するとは限らない}
@@ -351,7 +355,7 @@ pow(38, -1, 97)
 pow(2, -1, 6)
 \end{pyconsole}
 \end{alertblock}
-底と法となる数は互いに素である必要がある（何故？）
+与えられた法に対して底が乗法逆元を持たない（何故？）。
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{乗法逆元を求めて}
@@ -398,17 +402,136 @@ $y=2$  & 12     & 15     & 18    & 21    & 24    \\ \hline
 
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{合同方程式の解}
+
+\begin{theorem}
+整数$a, c$に対して、$m$を法とする合同方程式
+\begin{equation*}
+ax \equiv c \pmod{m}
+\end{equation*}
+は、$c$が$\gcd(a, m)$で割り切れるときのみ、ちょうど$\gcd(a, m)$個の互いに合同ではない解を持つ。
+ただし、$\gcd(a, m)$は$a$と$m$の最大公約数である。
+\end{theorem}
+証明は、適当な初等整数論の教科書を参照してください。
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{今回のケース}
+
+\begin{corollary}
+整数$a,$に対して、$m$を法とする合同方程式
+\begin{equation*}
+ax \equiv 1 \pmod{m}
+\end{equation*}
+は、$\gcd(a, m) = 1$の場合のみ、1個の互いに合同ではない解を持つ。
+\end{corollary}
+乗法逆元が存在するかどうかは数学的な裏付けがある。
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{剰余類における乗法逆元}
+
+\begin{exampleblock}{乗法逆元が存在するケース}
+
+\begin{pyconsole}
+import math
+math.gcd(38, 97)
+pow(38, -1, 97)
+\end{pyconsole}
+\end{exampleblock}
+$\gcd(38, 97) = 1$なので、97を法とする38の乗法逆元が存在する。
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{剰余類における乗法逆元}
+
+\begin{alertblock}{乗法逆元が存在しないケース}
+
+\begin{pyconsole}
+import math
+math.gcd(2, 6)
+pow(2, -1, 6)
+\end{pyconsole}
+\end{alertblock}
+$\gcd(2, 6) \neq 1$なので、6を法とする2の乗法逆元は存在しない。
+\end{frame}
+
+\subsection{Euclidの互除法}
+
+\begin{frame}[fragile]\frametitle{Euclidの互除法}
+\begin{theorem}
+$a, b$を$a \leq b$である整数、$r$を$a$を$b$で割った余りとする。
+このとき、
+\begin{equation*}
+\gcd(a, b) = \gcd(b, r)
+\end{equation*}
+が成り立つ。
+\end{theorem}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Euclidの互除法}
+\begin{exampleblock}{97と38の最大公約数を計算する}
+\begin{align*}
+97 &= 2 \times 38 + 21 \\
+38 &= 1 \times 21 + 17 \\
+21 &= 1 \times 17 + 4 \\
+17 &= 4 \times 4 + 1 \\
+4 &= 1 \times 4 + 0
+\end{align*}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Euclidの互除法}
+\begin{exampleblock}{97と38の最大公約数を計算する}
+$a=97, b=38$とすると
+\begin{align*}
+21 &= a -2b \\
+17 &= b -21 \\
+     &= -a + 3b \\
+4   &= 21 - 17 \\
+     &= 2a - 5b \\
+1 &= 17 - 4 \times 4 \\
+   &= -9a + 23b
+\end{align*}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Euclidの互除法}
+\begin{theorem}{不定方程式}
+$a, b$を0ではない整数とする。このとき、方程式
+\begin{equation*}
+ax + by = \gcd(a, b)
+\end{equation*}
+は解$(x_{0}, y_{0})$を持ち、Euclidの互除法によって求めることができる。
+\end{theorem}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{\texttt{pow}の中身}
+\begin{block}{\texttt{longobject.c}のコメントにある実装}
+\begin{pygments}{python}
+def invmod(a, m):
+    x, y = 1, 0
+    while m:
+        q, r = divmod(a, m)
+        a, m = m, r
+        x, y = y, x - q * y
+    if a == 1:
+        return x
+    raise ValueError("Not invertible")
+\end{pygments}
+\end{block}
+\end{frame}
+
+
 \section{まとめ}
 
 \begin{frame}[fragile]\frametitle{Conclusion}
 \begin{block}{まとめ}
 \begin{itemize}
-\item \texttt{pow}関数は身近な存在
-\item \texttt{pow}関数は身近な存在
-\item \texttt{pow}関数は身近な存在
-\item \texttt{pow}関数は身近な存在
+\item \texttt{pow}関数は数のべき乗を返す関数である。
+\item べき乗剰余を計算する場合は必ず\texttt{pow}関数を使う。
+\item Python 3.8で剰余類の乗法逆元が計算できるようになった。
+\item 乗法逆元が計算できる仕組みはEuclidの互除法にある。
 \end{itemize}
 \end{block}
-\texttt{pow}関数はズッ友！
+\texttt{pow}関数とEuclidの互除法ゎ…ズッ友だょ…！！
 \end{frame}
 \end{document}
