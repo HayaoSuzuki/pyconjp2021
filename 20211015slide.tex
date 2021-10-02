@@ -67,13 +67,13 @@
 
 \begin{block}{Twitterのハッシュタグ}
 \begin{itemize}
-\item \#pyconjp\_4 TBA
+\item \#pyconjp \#pyconjp\_3
 \end{itemize}
 \end{block}
 
 \begin{block}{PyCon JP Discord}
 \begin{itemize}
-\item \#jp-2021-track-1 TBA
+\item \#jp-2021-track-3 TBA
 \end{itemize}
 \end{block}
 \end{frame}
@@ -150,8 +150,9 @@
 \end{frame}
 
 \begin{frame}\frametitle{今日の目標}
-\begin{block}{組み込み関数powの知られざる進化}
+\begin{block}{組み込み関数\texttt{pow}の知られざる進化}
 \begin{itemize}
+\item Python 3.8で追加された\texttt{pow}関数の新機能を理解する
 \item 「整数$m$を法とする剰余類における逆元」の意味を理解する
 \item 「整数$m$を法とする剰余類における逆元」を計算するアルゴリズムを理解する
 \end{itemize}
@@ -230,6 +231,7 @@ b^{n} \bmod{m}
 \begin{itemize}
 \item 組み込み関数\texttt{pow}で\structure{効率的に}計算できる。
 \item \texttt{**}演算子および\texttt{\%}演算子でも計算可能だが\structure{効率が悪い}。
+\item Python 1.5から利用可能。
 \end{itemize}
 \end{block}
 
@@ -243,6 +245,10 @@ pow(2, 262144, 65535)
 % メモ
 % 計算の都度、余りを計算してるように見えるが、ちょっと自身がない
 % https://github.com/python/cpython/blob/59242431991794064824cf2ab70886367613f29e/Objects/longobject.c#L4219
+
+% めも
+% 1.5の該当ドキュメント、但し int の範囲に収まる必要がある
+% https://docs.python.org/release/1.5/lib/node26.html#1810
 
 \end{exampleblock}
 
@@ -454,7 +460,7 @@ pow(2, -1, 6)
 $\gcd(2, 6) \neq 1$なので、6を法とする2の乗法逆元は存在しない。
 \end{frame}
 
-\subsection{Euclidの互除法}
+\subsection{拡張Euclidの互除法}
 
 \begin{frame}[fragile]\frametitle{Euclidの互除法}
 \begin{theorem}
@@ -465,6 +471,21 @@ $a, b$を$a \leq b$である整数、$r$を$a$を$b$で割った余りとする�
 \end{equation*}
 が成り立つ。
 \end{theorem}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Euclidの互除法}
+\begin{block}{Euclidの互除法と1次不定方程式}
+$a$を$b$で割った商と剰余をそれぞれ$q, r$とする。
+不定方程式$ax+by=1$に$a = qb + r$を代入すると、
+\begin{align*}
+& (qb + r)x + by = 1 \\
+\Rightarrow & b(qx + y) + rx = 1
+\end{align*}
+となる。
+\end{block}
+つまり、$ax+by=1$から$bs + rt = 1$にすることができる。
+
+$x=t, y = s - qt$という関係。
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Euclidの互除法}
@@ -505,7 +526,7 @@ ax + by = \gcd(a, b)
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{\texttt{pow}の中身}
-\begin{block}{\texttt{longobject.c}のコメントにある実装}
+\begin{block}{\texttt{longobject.c}のコメントにある実装（一部改変）}
 \begin{pygments}{python}
 def invmod(a, m):
     x, y = 1, 0
