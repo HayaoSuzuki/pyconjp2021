@@ -59,21 +59,22 @@
 
 \begin{frame}\frametitle{発表に際して}
 
-\begin{block}{GitHubに資料があります}
+\begin{block}{GitHub}
 \begin{itemize}
 \item \url{https://github.com/HayaoSuzuki/pyconjp2021}
 \end{itemize}
 \end{block}
 
-\begin{block}{Twitterのハッシュタグ}
+\begin{block}{Twitterハッシュタグ}
 \begin{itemize}
 \item \#pyconjp \#pyconjp\_3
 \end{itemize}
 \end{block}
 
-\begin{block}{PyCon JP Discord}
+\begin{block}{PyCon JP 2021 Discord}
 \begin{itemize}
-\item \#jp-2021-track-3 TBA
+\item \#hayao-suzuki-組み込み関数powの知られざる進化
+\item \#pyconjp\_3 （1日目 17:30～18:15）
 \end{itemize}
 \end{block}
 \end{frame}
@@ -460,6 +461,15 @@ pow(2, -1, 6)
 $\gcd(2, 6) \neq 1$なので、6を法とする2の乗法逆元は存在しない。
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{剰余類における乗法逆元}
+\begin{theorem}
+整数$a$に対して、$m$を法とする乗法逆元が存在するための必要十分条件は$\gcd(a, m)=1$である。
+\end{theorem}
+公式ドキュメントにも
+「If mod is present and exp is negative, base must be relatively prime to mod.」
+とある。
+\end{frame}
+
 \subsection{拡張Euclidの互除法}
 
 \begin{frame}[fragile]\frametitle{Euclidの互除法}
@@ -488,42 +498,42 @@ $a$を$b$で割った商と剰余をそれぞれ$q, r$とする。
 $x=t, y = s - qt$という関係。
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Euclidの互除法}
-\begin{exampleblock}{97と38の最大公約数を計算する}
-\begin{align*}
-97 &= 2 \times 38 + 21 \\
-38 &= 1 \times 21 + 17 \\
-21 &= 1 \times 17 + 4 \\
-17 &= 4 \times 4 + 1 \\
-4 &= 1 \times 4 + 0
-\end{align*}
-\end{exampleblock}
-\end{frame}
+%\begin{frame}[fragile]\frametitle{Euclidの互除法}
+%\begin{exampleblock}{97と38の最大公約数を計算する}
+%\begin{align*}
+%97 &= 2 \times 38 + 21 \\
+%38 &= 1 \times 21 + 17 \\
+%21 &= 1 \times 17 + 4 \\
+%17 &= 4 \times 4 + 1 \\
+%4 &= 1 \times 4 + 0
+%\end{align*}
+%\end{exampleblock}
+%\end{frame}
+%
+%\begin{frame}[fragile]\frametitle{Euclidの互除法}
+%\begin{exampleblock}{97と38の最大公約数を計算する}
+%$a=97, b=38$とすると
+%\begin{align*}
+%21 &= a -2b \\
+%17 &= b -21 \\
+%     &= -a + 3b \\
+%4   &= 21 - 17 \\
+%     &= 2a - 5b \\
+%1 &= 17 - 4 \times 4 \\
+%   &= -9a + 23b
+%\end{align*}
+%\end{exampleblock}
+%\end{frame}
 
-\begin{frame}[fragile]\frametitle{Euclidの互除法}
-\begin{exampleblock}{97と38の最大公約数を計算する}
-$a=97, b=38$とすると
-\begin{align*}
-21 &= a -2b \\
-17 &= b -21 \\
-     &= -a + 3b \\
-4   &= 21 - 17 \\
-     &= 2a - 5b \\
-1 &= 17 - 4 \times 4 \\
-   &= -9a + 23b
-\end{align*}
-\end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]\frametitle{Euclidの互除法}
-\begin{theorem}{不定方程式}
-$a, b$を0ではない整数とする。このとき、方程式
-\begin{equation*}
-ax + by = \gcd(a, b)
-\end{equation*}
-は解$(x_{0}, y_{0})$を持ち、Euclidの互除法によって求めることができる。
-\end{theorem}
-\end{frame}
+%\begin{frame}[fragile]\frametitle{Euclidの互除法}
+%\begin{theorem}{不定方程式}
+%$a, b$を0ではない整数とする。このとき、方程式
+%\begin{equation*}
+%ax + by = \gcd(a, b)
+%\end{equation*}
+%は解$(x_{0}, y_{0})$を持ち、Euclidの互除法によって求めることができる。
+%\end{theorem}
+%\end{frame}
 
 \begin{frame}[fragile]\frametitle{\texttt{pow}の中身}
 \begin{block}{\texttt{longobject.c}のコメントにある実装（一部改変）}
@@ -541,10 +551,16 @@ def invmod(a, m):
 \end{block}
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{剰余類における乗法逆元}
+\begin{remark}
+整数$a$に対して、$m$を法とする乗法逆元を計算するアルゴリズムは拡張Euclidの互除法と呼ばれる。
+\end{remark}
+\end{frame}
+
 
 \section{まとめ}
 
-\begin{frame}[fragile]\frametitle{Conclusion}
+\begin{frame}[fragile]\frametitle{まとめ}
 \begin{block}{まとめ}
 \begin{itemize}
 \item \texttt{pow}関数は数のべき乗を返す関数である。
@@ -553,6 +569,12 @@ def invmod(a, m):
 \item 乗法逆元が計算できる仕組みはEuclidの互除法にある。
 \end{itemize}
 \end{block}
-\texttt{pow}関数とEuclidの互除法ゎ…ズッ友だょ…！！
+
+\begin{block}{PyCon JP 2021 Discordもよろしく}
+\begin{itemize}
+\item \#hayao-suzuki-組み込み関数powの知られざる進化
+\item \#pyconjp\_3 （1日目 17:30～18:15）
+\end{itemize}
+\end{block}
 \end{frame}
 \end{document}
